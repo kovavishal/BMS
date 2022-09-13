@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.application.bms">
+
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.READ_PHONE_NUMBERS" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
+
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/bms_logo_1"
+        android:label="@string/app_name"
+        android:roundIcon="@drawable/bms_logo_1"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.BMS"
+        android:usesCleartextTraffic="true">
+        <activity android:name="com.application.bms.SplashActivity"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity android:name="com.application.bms.CheckLoginActivity"
+            android:windowSoftInputMode="adjustResize"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <category android:name="android.intent.category.LAUNCHER" />
+                <!--                <action android:name="android.intent.action.MAIN" />-->
+                <action android:name="android.intent.action.VIEW" />
+            </intent-filter>
+        </activity>
+
+        <activity android:name="com.application.bms.HomeScreenActivity"
+            android:screenOrientation="portrait"/>
+
+        <activity android:name="com.application.bms.BookingCustomerListActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.application.bms.HomeScreenActivity" />
+        </activity>
+        <activity android:name=".ScreenSummaryOrder" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.application.bms.HomeScreenActivity" />
+        </activity>
+        <activity android:name=".ScreenImport" />
+        <activity android:name=".ScreenExport" />
+        <activity android:name=".ScreenStock" />
+        <activity android:name=".GroupListActivity" />
+        <activity android:name="com.application.bms.ProductActivity" />
+        <activity android:name=".NewProductActivity"
+            />
+        <activity android:name=".SelectedProductActivity"/>
+        <activity android:name=".InsertProductActivity"
+            android:windowSoftInputMode="adjustResize"/>
+        <activity android:name=".PendingActivity"/>
+        <activity android:name=".UpdateProductActivity"
+            android:windowSoftInputMode="adjustResize"/>
+        <activity android:name=".BillSummaryDetails"/>
+        <activity android:name=".CustomerListActivity"/>
+        <activity android:name=".ExpireScreen"/>
+        <activity android:name=".RegisterActivity"
+            android:windowSoftInputMode="adjustResize"/>
+
+
+    <provider
+        android:name="androidx.core.content.FileProvider"
+        android:authorities="${applicationId}.provider"
+        android:exported="false"
+        android:grantUriPermissions="true"
+        tools:replace="android:authorities">
+        <meta-data
+            android:name="android.support.FILE_PROVIDER_PATHS"
+            android:resource="@xml/provider_paths"
+            tools:replace="android:resource"/>
+    </provider>
+
+
+    </application>
+
+</manifest>

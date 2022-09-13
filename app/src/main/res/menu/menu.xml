@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+<!--    <group-->
+<!--        android:id="@+id/top"-->
+<!--        android:checkableBehavior="single">-->
+<!--        <item-->
+<!--            android:id="@+id/nav_dashboard"-->
+<!--            android:title="Trip Clousure"-->
+<!--            android:visible="false" />-->
+<!--    </group>-->
+
+<!--    <group-->
+<!--        android:id="@+id/middle1"-->
+<!--        android:checkableBehavior="single">-->
+<!--        <item-->
+<!--            android:id="@+id/view_orders"-->
+<!--            android:title="View Orders" />-->
+<!--    </group>-->
+
+    <group
+        android:id="@+id/group2"
+        android:checkableBehavior="single"
+        android:visible="false">
+        <item
+            android:id="@+id/stockList"
+            android:title="View Stock" />
+    </group>
+
+    <group
+        android:id="@+id/group3"
+        android:checkableBehavior="single"
+        android:visible="false">
+        <item
+            android:id="@+id/orderBooking"
+            android:title="Order Booking" />
+    </group>
+
+    <group
+        android:id="@+id/group1"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/logout"
+            android:title="Logout" />
+    </group>
+</menu>
