@@ -53,7 +53,7 @@ public class CheckLoginActivity extends AppCompatActivity {
 
     private static final String url = "jdbc:mysql://143.95.72.225:3306/smartbms_testdb?characterEncoding=latin1";
     private static final String user = "smartbms_test";
-    private static final String pass = "password123";
+    private static final String pass = "password123456789";
 
     DatabaseHelper databaseHelper;
     private String DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
@@ -130,9 +130,39 @@ public class CheckLoginActivity extends AppCompatActivity {
                         Password = password.getText().toString();
                         connectionStatus = getConnectionType(context);
                         if (connectionStatus > 0) {
+                            //comment for not fetching from  cloud db
+//                            ConnectMySql connectMySql = new ConnectMySql();
+//                            connectMySql.execute();
+                            //comment for not fetching from  cloud db
 
-                            ConnectMySql connectMySql = new ConnectMySql();
-                            connectMySql.execute();
+                            //added to save in local db
+                            savedUserName = databaseHelper.getUserName();
+                            savedPassword = databaseHelper.getPassword();
+                            savedDeviceId = databaseHelper.getDeviceId();
+                            savedExpiryDate = databaseHelper.getExpiryDate();
+                            savedCreatedDate = databaseHelper.getCreatedDate();
+                            System.out.println("savedUserName from local==" + savedUserName + " , savedPassword from local==" + savedPassword + ",savedexpiryfrom local======" + savedExpiryDate);
+                            if (UserName.equals(savedUserName) && Password.equals(savedPassword) && uniqueNumber.equals(savedDeviceId)) {
+                                try {
+                                    Date current_date = new Date();
+                                    SimpleDateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT);
+                                    Date registered_date = dateFormat.parse(savedCreatedDate);
+                                    if (!registered_date.before(current_date)) {
+                                        Toast.makeText(getApplicationContext(), "You were Behind the Created Date", Toast.LENGTH_LONG).show();
+                                    } else {
+                                        Intent intent = new Intent(CheckLoginActivity.this, HomeScreenActivity.class);
+                                        intent.putExtra("username", UserName);
+                                        intent.putExtra("expiry_date", savedExpiryDate);
+                                        startActivity(intent);
+                                        finish();
+                                    }
+                                } catch (ParseException e) {
+                                    e.printStackTrace();
+                                }
+
+                            }
+                            //added to save in local db
+
 
                         } else {
                             savedUserName = databaseHelper.getUserName();

@@ -81,7 +81,7 @@ public class RegisterActivity extends AppCompatActivity {
         System.out.println("current Date===" + current_date);
         Calendar c = Calendar.getInstance();
 //        c.add(Calendar.DATE, 365);
-        c.add(Calendar.DATE, 30);
+        c.add(Calendar.DATE, 365);
         expiry_date = dateFormat.format(c.getTime());
         System.out.println("expiry Date===" + expiry_date);
 
@@ -92,17 +92,51 @@ public class RegisterActivity extends AppCompatActivity {
             if (phoneNumberET.getText().length() != 0 && phoneNumberET.getText().toString() != "") {
                 if (passwordET.getText().length() != 0 && passwordET.getText().toString() != "") {
                     if (connectionStatus > 0) {
+
+                        //added to save in local db
                         if (phoneNumberET.getText().length() == 10) {
                             phoneNumber = phoneNumberET.getText().toString();
                             password = passwordET.getText().toString();
-                            ConnectMySql connectMySql = new ConnectMySql();
-                            connectMySql.execute();
-                        }else{
+                            saveInLocal = databaseHelper.saveRegisteredUser(phoneNumber, password, uniqueNumber, current_date, expiry_date);
+                            System.out.println("save in local====="+saveInLocal);
+                            if (saveInLocal > 0) {
+                                Toast.makeText(getApplicationContext(), "User Details Saved Successfully", Toast.LENGTH_SHORT).show();
+                            }
+                            Toast.makeText(getApplicationContext(), "Registered Successfully..Please login to Continue", Toast.LENGTH_LONG).show();
+                            Intent intent = new Intent(RegisterActivity.this, CheckLoginActivity.class);
+                            startActivity(intent);
+                        } else{
                             Toast.makeText(getApplicationContext(), "Please Enter Valid Mobile Number", Toast.LENGTH_LONG).show();
                         }
+                        //added to save in local db
+
+
+                        //comment for not saving in cloud db
+//                        if (phoneNumberET.getText().length() == 10) {
+//                            phoneNumber = phoneNumberET.getText().toString();
+//                            password = passwordET.getText().toString();
+//                            ConnectMySql connectMySql = new ConnectMySql();
+//                            connectMySql.execute();
+//                        }else{
+//                            Toast.makeText(getApplicationContext(), "Please Enter Valid Mobile Number", Toast.LENGTH_LONG).show();
+//                        }
+                        //comment for not saving in cloud db
 
                     } else {
-                        Toast.makeText(getApplicationContext(), "Please check Your network connection", Toast.LENGTH_LONG).show();
+                        //added to save in local db
+                        saveInLocal = databaseHelper.saveRegisteredUser(phoneNumber, password, uniqueNumber, current_date, expiry_date);
+                        System.out.println("save in local====="+saveInLocal);
+                        if (saveInLocal > 0) {
+                            Toast.makeText(getApplicationContext(), "User Details Saved Successfully", Toast.LENGTH_SHORT).show();
+                        }
+                        Toast.makeText(getApplicationContext(), "Registered Successfully..Please login to Continue", Toast.LENGTH_LONG).show();
+                        Intent intent = new Intent(RegisterActivity.this, CheckLoginActivity.class);
+                        startActivity(intent);
+                        //added to save in local db
+
+                        //comment for not saving in cloud db
+//                        Toast.makeText(getApplicationContext(), "Please check Your network connection", Toast.LENGTH_LONG).show();
+                        //comment for not saving in cloud db
                     }
                 } else {
                     Toast.makeText(getApplicationContext(), "Password Can't be empty", Toast.LENGTH_LONG).show();
